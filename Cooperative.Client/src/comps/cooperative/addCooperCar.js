@@ -5,7 +5,6 @@ import { toast } from 'react-toastify';
 import AuthClientComp from '../users_comps/authClientComp';
 import { API_URL, doApiMethod } from '../../services/apiService';
 import axios from "axios";
-import { secret } from '../../config/config';
 
 function AddCooperCar(props){
     let [year, setYear] = useState([]);
@@ -40,7 +39,7 @@ function AddCooperCar(props){
   }
 
   const doLocation = async (formData) => { 
-    let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${formData.address}&key=${secret.googleKey}`
+    let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${formData.address}&key=${process.env.REACT_APP_GOOGLE_KEY}`
     let resp = await axios.get(url);
     let data = resp.data.results[0].geometry.location
         formData.longitude =data.lat

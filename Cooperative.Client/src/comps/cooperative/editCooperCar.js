@@ -7,7 +7,6 @@ import { toast } from 'react-toastify';
 import AuthClientComp from '../users_comps/authClientComp';
 import axios from "axios";
 import { BeatLoader } from 'react-spinners';
-import { secret } from '../../config/config';
 
 function EditCooperCar(props){
     let [car, setCar] = useState({})
@@ -49,7 +48,7 @@ function EditCooperCar(props){
         doLocation(formData)
       }
       const doLocation = async (formData) => { 
-        let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${formData.address}&key=${secret.googleKey}`
+        let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${formData.address}&key=${process.env.REACT_APP_GOOGLE_KEY}`
         let resp = await axios.get(url);
         let data = resp.data.results[0].geometry.location
             formData.longitude =data.lat
