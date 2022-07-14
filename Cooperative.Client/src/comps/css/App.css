@@ -79,11 +79,14 @@ form.form-design{
   min-height: 600px;
 }
   .sale-list{
-     align-items: center;
-     justify-content: center;
-     margin: 0 auto;
+     /* align-items: center; */
+     /* justify-content: center; */
+     /* margin: 0 auto; */
      margin-top: 4vh;
-     display: grid;
+     display: block;
+  }
+  .year-cat{
+    display: flex;
   }
   .form__group{
     width: 90%;

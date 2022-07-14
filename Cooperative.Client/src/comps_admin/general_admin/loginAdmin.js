@@ -9,6 +9,7 @@ function LoginAdmin(props){
   let {register , handleSubmit ,  formState: { errors } } = useForm();
 
   const onSubForm = (data) => {
+    data.email = data.email.toLowerCase()  
     doApi(data)
   }
 

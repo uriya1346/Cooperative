@@ -103,7 +103,7 @@ function RentalAdminList(props) {
                 Day Price<i className="fa fa-money ms-2" aria-hidden="true"></i>
               </th>
               <th>
-                is used today
+                Status
                 <i className="fa fa-dot-circle-o ms-2" aria-hidden="true"></i>
               </th>
               <th>

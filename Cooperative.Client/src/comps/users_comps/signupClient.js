@@ -9,10 +9,11 @@ function SignUpClient(props) {
   let { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubForm = (data) => {
+    data.email = data.email.toLowerCase()  
     doApi(data)
   }
   const doApi = async (_dataBody) => {
-    let url = API_URL + "/users/";
+    let url = API_URL + "/users";
     try {
       let resp = await doApiMethod(url, "POST", _dataBody);
       if (resp.data._id) {

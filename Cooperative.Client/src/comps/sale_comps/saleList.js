@@ -11,7 +11,6 @@ function SaleList(props) {
   const [catAr, setCatAr] = useState([]);
   const [flagPrice, setFlagPrice] = useState(false);
   const [ar, setAr] = useState([]);
-  const [showLoading, setShowLoading] = useState(true);
   const location = useLocation();
   let nav = useNavigate();
   let inputRef = useRef();
@@ -24,7 +23,6 @@ function SaleList(props) {
   }
 
   useEffect(() => {
-    setShowLoading(true);
     doApiCat();
     doApi();
   }, [location, flagGear, flagPrice]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -54,7 +52,6 @@ function SaleList(props) {
       temp_ar3 = temp_ar2.filter((car) => car.year === val);
     }
     setAr(temp_ar3);
-    setShowLoading(false)
   };
 
   const onKeyboardClick = (e) => {
@@ -88,6 +85,7 @@ function SaleList(props) {
       <div style={{ minHeight: "15vh" }}></div>
       <div className="container">
         <div className="sale-list">
+          <div className="year-cat d-flex">
           <div>
             <h5>Category:<i className="fa fa-arrow-down mx-2" aria-hidden="true"></i></h5>
             <select
@@ -124,7 +122,7 @@ function SaleList(props) {
               })}
             </select>
           </div>
-
+          </div>
           <div className=" d-flex inp form__group field">
             <input
               onKeyDown={onKeyboardClick}
@@ -160,9 +158,6 @@ function SaleList(props) {
           </div>
         </div>
 
-        {showLoading ? <h2 className='text-center'><div className='text-center mt-4'> <BeatLoader/> </div></h2> : ""}
-        {ar.length === 0 && !showLoading ? 
-        <p className="mt-5 text-center h3 gradi">Search not match, try another query...</p> : ""}
         <div className="row">
           {ar.map((item) => {
             return <SaleItem key={item._id} item={item} />;
