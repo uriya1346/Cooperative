@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import '../css/userInfo.css'
 import { BeatLoader } from "react-spinners";
+import AuthClientComp from '../users_comps/authClientComp';
 
 function UserInfo(props) {
   const [user, setUser] = useState({});
@@ -104,6 +105,7 @@ function UserInfo(props) {
 
   return (
     <div className="container mb-5">
+            <AuthClientComp />
       <div className="premium-go">
       <h2 style={{paddingTop:"10px"}}>Premium User<i className="fa fa-arrow-right mx-2" aria-hidden="true"></i></h2>
       <button
