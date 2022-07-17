@@ -26,24 +26,24 @@ function UsersList(props) {
     }
   };
 
-  const changeRole = async (_userId, _role) => {
-    let url = API_URL + `/users/changeRole/${_userId}/${_role}`;
-    try {
-      let resp = await doApiMethod(url, "PATCH", {});
-      if (resp.data.modifiedCount) {
-        doApi();
-      }
-    } catch (err) {
-      if (err.response.status === 401) {
-        toast.error("you can't change yourself or the super admin");
-      } else {
-        toast.error("there problem come back later");
-      }
-      if (err.response) {
-        console.log(err.response.data);
-      }
-    }
-  };
+  // const changeRole = async (_userId, _role) => {
+  //   let url = API_URL + `/users/changeRole/${_userId}/${_role}`;
+  //   try {
+  //     let resp = await doApiMethod(url, "PATCH", {});
+  //     if (resp.data.modifiedCount) {
+  //       doApi();
+  //     }
+  //   } catch (err) {
+  //     if (err.response.status === 401) {
+  //       toast.error("you can't change yourself or the super admin");
+  //     } else {
+  //       toast.error("there problem come back later");
+  //     }
+  //     if (err.response) {
+  //       console.log(err.response.data);
+  //     }
+  //   }
+  // };
 
   return (
     <div className="container text-center">
