@@ -7,11 +7,12 @@ import { toast } from "react-toastify";
 
 function UsersList(props) {
   let [ar, setAr] = useState([]);
-  let selectRef = useRef()
+  const itemsRef = useRef([]);
 
   useEffect(() => {
     doApi();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    itemsRef.current = itemsRef.current.slice(0, ar.length);
+  }, [ar]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const doApi = async () => {
     let url = API_URL + "/users/usersList";
@@ -26,30 +27,34 @@ function UsersList(props) {
     }
   };
 
-  // const changeRole = async (_userId, _role) => {
-  //   let url = API_URL + `/users/changeRole/${_userId}/${_role}`;
-  //   try {
-  //     let resp = await doApiMethod(url, "PATCH", {});
-  //     if (resp.data.modifiedCount) {
-  //       doApi();
-  //     }
-  //   } catch (err) {
-  //     if (err.response.status === 401) {
-  //       toast.error("you can't change yourself or the super admin");
-  //     } else {
-  //       toast.error("there problem come back later");
-  //     }
-  //     if (err.response) {
-  //       console.log(err.response.data);
-  //     }
-  //   }
-  // };
+  const changeRole = async (_userId, _role) => {
+    let url = API_URL + `/users/changeRole/${_userId}/${_role}`;
+    try {
+      let resp = await doApiMethod(url, "PATCH", {});
+      if (resp.data.modifiedCount) {
+        doApi();
+      }
+    } catch (err) {
+      if (err.response.status === 401) {
+        toast.error("you can't change yourself or the super admin");
+      } else {
+        toast.error("there problem come back later");
+      }
+      if (err.response) {
+        console.log(err.response.data);
+      }
+    }
+  };
 
   const delUser = async (_idDel) => {
+    if(_idDel === "62d430486f10ec6ae9bd7196"){
+      toast.dark("you can't delete the super admin")
+      return
+    }
     if (window.confirm("Are you sure you want to delete?")) {
       console.log(_idDel);
       try {
-        let url = API_URL + "/users/"+_idDel;
+        let url = API_URL + "/users/" + _idDel;
         let resp = await doApiMethod(url, "DELETE", {});
         if (resp.data.deletedCount) {
           toast.info("User delted!");
@@ -86,8 +91,9 @@ function UsersList(props) {
             <th>
               <i className="fa fa-user-secret mx-2" aria-hidden="true"></i>Role
             </th>
-            <th><i className="fa fa-pencil mx-2" aria-hidden="true"></i>Deletion</th>
-
+            <th>
+              <i className="fa fa-pencil mx-2" aria-hidden="true"></i>Delete
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -96,57 +102,55 @@ function UsersList(props) {
               <tr key={item._id}>
                 <td>{i + 1}</td>
                 <td>
-                  {item._id === "6268023f45f842ebf1ab3dea" ? (
-                    <span style={{ color: "#e91e63" }}>
-                      {" "}
-                      {item.first_name + " " + item.last_name} (Super Admin)
-                    </span>
-                  ) : (
-                    item.first_name + " " + item.last_name
-                  )}
+                   {item.first_name + " " + item.last_name}
                 </td>
                 <td>{item.email}</td>
 
                 <td>{item.address}</td>
                 <td>
-                {item._id != "6268023f45f842ebf1ab3dea" ?
-                  // <select
-                  // ref={selectRef}
-                  // onChange={() => {
-                  //   changeRole(item._id, selectRef.current.value)} }
-                  //   className="form-select form-select-lg mb-3 "
-                  //   aria-label=".form-select-lg example"
-                  // >
-                  //   <option value={item.role} defaultValue>{item.role}</option>
-                  //  {item.role != "admin" ? <option value="admin"  {...selectRef}>admin</option> : ""}
-                  //  {item.role != "premium" ? <option value="premium"  {...selectRef}>premium</option> : ""}
-                  //  {item.role != "user" ? <option value="user"  {...selectRef}>user</option> : ""}
-                  // </select>
-                  item.role
-                    : <h4 className="text-dark">Super Admin</h4> }
-
-                   {/* {(item.role === "admin") ? 
-                  <button onClick={() => {
-                    changeRole(item._id, "user")
-                  }} className='btn btn-outline-danger'>Admin</button> 
-                  : 
-                  <button 
-                  onClick={() => {
-                    changeRole(item._id, "admin")
-                  }} 
-                  className='btn btn-outline-warning'>User</button>
-                }  */}
+                  {item._id != "62d430486f10ec6ae9bd7196" ? (
+                    <select
+                      key={i}
+                      ref={(el) => (itemsRef.current[i] = el)}
+                      onChange={() => {
+                        changeRole(item._id, itemsRef.current[i].value);
+                      }}
+                      className="form-select form-select-lg mb-3 "
+                      aria-label=".form-select-lg example"
+                    >
+                      <option value={item.role} defaultValue>
+                        {item.role}
+                      </option>
+                      {item.role != "admin" ? (
+                        <option value="admin">admin</option>
+                      ) : (
+                        ""
+                      )}
+                      {item.role != "premium" ? (
+                        <option value="premium">premium</option>
+                      ) : (
+                        ""
+                      )}
+                      {item.role != "user" ? (
+                        <option value="user">user</option>
+                      ) : (
+                        ""
+                      )}
+                    </select>
+                  ) : (
+                    <h4 className="text-dark">Super Admin</h4>
+                  )}
                 </td>
                 <td>
-                    <button
-                      onClick={() => {
-                        delUser(item._id);
-                      }}
-                      className="badge btn btn-outline-danger mx-5"
-                    >
-                      X
-                    </button>
-                  </td>
+                  <button
+                    onClick={() => {
+                      delUser(item._id);
+                    }}
+                    className="badge btn btn-outline-danger mx-5"
+                  >
+                    X
+                  </button>
+                </td>
               </tr>
             );
           })}
