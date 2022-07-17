@@ -152,6 +152,7 @@ router.put("/:idEdit",auth , async(req,res) => {
 router.delete("/:userId",auth , async(req,res) => {
   let userId = req.params.userId;
   try{
+    // we will delete all cars of this user
     let data = await UserModel.deleteOne({_id:userId});
     res.status(200).json(data);
   }
