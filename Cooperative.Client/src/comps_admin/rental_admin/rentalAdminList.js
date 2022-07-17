@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 function RentalAdminList(props) {
   let nav = useNavigate();
   const [ar, setAr] = useState([]);
-  const [arIfUsed, setArIfUsed] = useState([]);
 
   const [shortId, setShortId] = useState(0);
   const [amount, setAmount] = useState(0);
@@ -19,9 +18,7 @@ function RentalAdminList(props) {
 
   useEffect(() => {
     setAr([]);
-    setArIfUsed([]);
     doApi();
-    checkIfUsed();
   }, [location]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const doApi = async () => {
@@ -42,20 +39,15 @@ function RentalAdminList(props) {
     setAmount(resp3.data.amount);
   };
 
-  const checkIfUsed = () => {
+  const checkIfUsed = (car) => {
     let dateToday = new Date();
-    for (let i = 0; i < ar.length; i++) {
-      let car_ar = ar[i].in_use;
-      let TempArIfUsed = arIfUsed;
-      for (let j = 0; j < car_ar.length; j++) {
-        let tempStart = new Date(car_ar[j].start);
-        let tempend = new Date(car_ar[j].end);
-        if (tempStart <= dateToday && tempend >= dateToday)
-          TempArIfUsed[i] = "in used";
-        setArIfUsed(TempArIfUsed);
-        console.log(arIfUsed);
-      }
-    }
+    return (
+      car?.in_use?.findIndex((rent) => {
+        return (
+          new Date(rent.start) <= dateToday && new Date(rent.end) >= dateToday
+        );
+      }) !== -1
+    );
   };
 
   const delCar = async (_idDel) => {
@@ -120,7 +112,7 @@ function RentalAdminList(props) {
                   <td>{item.year}</td>
                   <td>{item.day_price}</td>
                   <td className="text-center">
-                    {arIfUsed[i] === "in used" ? (
+                    {checkIfUsed(item) ? (
                       <span className="px-2">in used</span>
                     ) : (
                       <span className="px-2">available</span>
