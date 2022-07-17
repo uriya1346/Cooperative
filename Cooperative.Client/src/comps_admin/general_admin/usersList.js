@@ -45,6 +45,23 @@ function UsersList(props) {
   //   }
   // };
 
+  const delUser = async (_idDel) => {
+    if (window.confirm("Are you sure you want to delete?")) {
+      console.log(_idDel);
+      try {
+        let url = API_URL + "/users/"+_idDel;
+        let resp = await doApiMethod(url, "DELETE", {});
+        if (resp.data.deletedCount) {
+          toast.info("User delted!");
+        }
+        doApi();
+      } catch (err) {
+        console.log(err.response);
+        doApi();
+      }
+    }
+  };
+
   return (
     <div className="container text-center">
       <AuthAdminComp />
@@ -69,6 +86,8 @@ function UsersList(props) {
             <th>
               <i className="fa fa-user-secret mx-2" aria-hidden="true"></i>Role
             </th>
+            <th><i className="fa fa-pencil mx-2" aria-hidden="true"></i>Deletion</th>
+
           </tr>
         </thead>
         <tbody>
@@ -118,6 +137,16 @@ function UsersList(props) {
                   className='btn btn-outline-warning'>User</button>
                 }  */}
                 </td>
+                <td>
+                    <button
+                      onClick={() => {
+                        delUser(item._id);
+                      }}
+                      className="badge btn btn-outline-danger mx-5"
+                    >
+                      X
+                    </button>
+                  </td>
               </tr>
             );
           })}
