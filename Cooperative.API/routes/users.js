@@ -1,6 +1,9 @@
 const express = require("express");
 const bcrypt = require("bcrypt")
 const { validateUser, UserModel, validateLogin, genToken } = require("../models/userModel");
+const { RentalOrderModel } = require("../models/rentalOrderModel");
+const {SaleOrderModel } = require("../models/saleOrderModel");
+const {CooperativeModel} = require("../models/cooperativeModel");
 const { auth, authAdmin } = require("../middlewares/auth");
 const router = express.Router();
 
@@ -152,9 +155,11 @@ router.put("/:idEdit",auth , async(req,res) => {
 router.delete("/:userId",auth , async(req,res) => {
   let userId = req.params.userId;
   try{
-    // we will delete all cars of this user
-    let data = await UserModel.deleteOne({_id:userId});
-    res.status(200).json(data);
+    let deleteRentalOrder = await RentalOrderModel.deleteMany({user_id:userId});  
+    let deleteSaleOrder = await SaleOrderModel.deleteMany({user_id:userId});  
+    let deleteCooperativeCar = await CooperativeModel.deleteMany({user_id:userId});  
+    let deleteUser = await UserModel.deleteOne({_id:userId});
+    res.status(200).json(deleteRentalOrder ,deleteSaleOrder ,deleteCooperativeCar ,deleteUser );
   }
   catch(err){
     console.log(err);
