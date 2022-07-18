@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState, useRef } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { API_URL, doApiGet } from '../../services/apiService';
+import { addProdVisitedToLocal } from '../../services/localService';
 import {AppContext} from "../../context/shopContext"
 import { toast } from 'react-toastify';
 
@@ -22,7 +23,8 @@ function RentalCarInfo(props){
   const doApi = async() => {
     let url = API_URL + "/rental/single/"+params.id;
     let resp = await doApiGet(url);
-     setProduct(resp.data)     
+     setProduct(resp.data) 
+     addProdVisitedToLocal(resp.data.short_id);    
   }
 
   const onOrder = () => {
