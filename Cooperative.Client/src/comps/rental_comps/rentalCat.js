@@ -2,6 +2,7 @@ import React, { useEffect,useRef, useState } from 'react';
 import { Link,useNavigate } from 'react-router-dom';
 import { API_URL, doApiGet } from '../../services/apiService';
 import {BeatLoader} from 'react-spinners'
+import VehiclesRental from './vehiclesRental';
 
 function RentalCat(props) {
   const [ar, setAr] = useState([]);
@@ -54,6 +55,7 @@ function RentalCat(props) {
               </Link>)
           })}
         </div>
+        <VehiclesRental/>
       </div>
     </div>
   )

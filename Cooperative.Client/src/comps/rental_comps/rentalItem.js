@@ -23,7 +23,7 @@ function RentalItem(props) {
   }
 
   return (
-    <div className='product-item col-md-6 p-2'>
+    <div className='product-item col-md-4 p-2'>
       <div className="shadow">
       <Link to={"/rentalCarInfo/" + item._id} className="text-white text-center text-decoration-none">
         <div style={{ backgroundImage: `url(${item.img_url || "/images/cover.jpg"})` }} className='product-img'>
