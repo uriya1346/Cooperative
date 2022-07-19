@@ -30,8 +30,8 @@ function VehiclesRental(props){
   return(
     <div className='container py-4'>
       {localStorage[VISITED_VEHICLES] ? 
-        <h2 className='text-center text-info gradi'>Vehicles you intersted in</h2> :
-      <h2 className='text-center'>
+        <h2 className='text-center gradi'>Vehicles you intersted in</h2> :
+      <h2 className='text-center gradi'>
         New vehicles on our site
       </h2>
     }
