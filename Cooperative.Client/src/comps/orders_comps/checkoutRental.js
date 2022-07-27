@@ -48,13 +48,11 @@ function CheckoutRental(props) {
       }
       try{
      await doApiMethod(url, "PATCH", paypalObject);
-     console.log("????????????")
       toast.success("Your order completed");
         setFlag(true)
       }
       catch(err){
         console.log(err);
-        console.log("!!!!!!!!!!!!!")
       }
   }
 

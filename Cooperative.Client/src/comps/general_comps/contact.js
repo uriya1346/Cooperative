@@ -9,18 +9,18 @@ function Contact(props){
 
   const form = useRef();
   const nav = useNavigate()
-  const sendEmail = (e) => {
-    e.preventDefault();
+    const sendEmail = (e) => {
+      e.preventDefault();
 
-    emailjs.sendForm('service_cars', 'template_zpjnfud', form.current, 'kyexmZY3HTBCh4cHd')
-      .then((result) => {
-          console.log(result.text);
-      }, (error) => {
-          console.log(error.text);
-      });
-      toast.success("Thank you, We will get back to you soon")
-      nav('/')
-    };
+      emailjs.sendForm('service_cars', 'template_zpjnfud', form.current, 'kyexmZY3HTBCh4cHd')
+        .then((result) => {
+            console.log(result.text);
+        }, (error) => {
+            console.log(error.text);
+        });
+        toast.success("Thank you, We will get back to you soon")
+        nav('/')
+      };
 
 
     return(

@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { API_URL, doApiGet } from "../../services/apiService";
-import { BeatLoader } from "react-spinners";
 import SaleItem from "./saleItem";
 import "checkboxes";
 import _, { toNumber } from "lodash";
