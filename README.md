@@ -35,8 +35,5 @@ Contributions are always welcome! Please read the [contribution guidelines](cont
 
 ## Contact
 
-If you have any questions, please feel free to reach out to me at your-email@example.com.
+If you have any questions, please feel free to reach out to me at uria1346@gmail.com.
 
-## License
-
-This project is [MIT](https://choosealicense.com/licenses/mit/) licensed
