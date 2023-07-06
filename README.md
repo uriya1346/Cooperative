@@ -2,6 +2,8 @@
 
 Cooperative Cars is an online shopping platform developed using cutting-edge web technologies, aiming to provide users with an intuitive and comprehensive e-commerce experience. 
 
+![](https://raw.githubusercontent.com/uriya1346/Cooperative/main/rental.png)
+
 ## Technologies Used
 
 - Client: React
