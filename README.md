@@ -29,10 +29,6 @@ Cooperative Cars is an online shopping platform developed using cutting-edge web
 
 Visit `localhost:3000` in your web browser to use the application.
 
-## Contribute
-
-Contributions are always welcome! Please read the [contribution guidelines](contributing.md) first.
-
 ## Contact
 
 If you have any questions, please feel free to reach out to me at uria1346@gmail.com.
